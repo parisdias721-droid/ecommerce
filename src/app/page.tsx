@@ -1,7 +1,9 @@
 import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
+import { connectDB } from "@/lib/mongodb";
+import { Product } from "@/models/Product";
 
-interface Product {
+interface ProductData {
   _id: string;
   name: string;
   description: string;
@@ -11,33 +13,23 @@ interface Product {
   category: string;
 }
 
-async function getData() {
-  const base = process.env.NEXT_PUBLIC_BASE_URL;
-
-  const [productsRes, categoriesRes] = await Promise.all([
-    fetch(`${base}/api/products`, { cache: "no-store" }),
-    fetch(`${base}/api/categories`, { cache: "no-store" }),
-  ]);
-
-  const products: Product[] = productsRes.ok ? await productsRes.json() : [];
-  const categories: string[] = categoriesRes.ok
-    ? (await categoriesRes.json()).categories
-    : [];
-
-  return { products, categories };
-}
-
 export default async function Home({
   searchParams,
 }: {
   searchParams: Promise<{ category?: string }>;
 }) {
-  const { products, categories } = await getData();
+  await connectDB();
+  const [products, categories] = await Promise.all([
+    Product.find().sort({ createdAt: -1 }).lean(),
+    Product.distinct("category"),
+  ]);
+
+  const productsData: ProductData[] = JSON.parse(JSON.stringify(products));
   const { category: activeCategory } = await searchParams;
 
   const filtered = activeCategory
-    ? products.filter((p) => p.category === activeCategory)
-    : products;
+    ? productsData.filter((p) => p.category === activeCategory)
+    : productsData;
 
   return (
     <>
