@@ -6,7 +6,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "ShopNext - E-Commerce",
-  description: "Premium e-commerce with Stripe + MongoDB",
+  description: "Premium e-commerce with MongoDB",
 };
 
 export default function RootLayout({

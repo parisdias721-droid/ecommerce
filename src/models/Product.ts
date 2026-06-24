@@ -7,7 +7,6 @@ export interface IProduct extends Document {
   currency: string;
   images: string[];
   category: string;
-  stripePriceId?: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -20,7 +19,6 @@ const ProductSchema = new Schema<IProduct>(
     currency: { type: String, default: "usd" },
     images: [{ type: String }],
     category: { type: String, default: "uncategorized", index: true },
-    stripePriceId: { type: String },
   },
   { timestamps: true }
 );

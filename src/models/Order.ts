@@ -1,8 +1,6 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 export interface IOrder extends Document {
-  stripeSessionId: string;
-  stripePaymentIntentId?: string;
   userId?: string;
   items: {
     productId: mongoose.Types.ObjectId;
@@ -21,8 +19,6 @@ export interface IOrder extends Document {
 
 const OrderSchema = new Schema<IOrder>(
   {
-    stripeSessionId: { type: String, required: true, unique: true },
-    stripePaymentIntentId: { type: String },
     userId: { type: String, index: true },
     items: [
       {
