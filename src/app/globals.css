@@ -5,3 +5,12 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.paypal-field {
+  min-height: 40px;
+  width: 100%;
+}
+
+.paypal-field iframe {
+  min-height: 40px;
+}

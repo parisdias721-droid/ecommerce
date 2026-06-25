@@ -3,6 +3,7 @@
 import { useCart } from "@/context/CartContext";
 import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
+import PayPalCheckout from "@/components/PayPalCheckout";
 
 export default function CheckoutPage() {
   const { items, totalPrice } = useCart();
@@ -61,14 +62,7 @@ export default function CheckoutPage() {
         </div>
       )}
 
-      <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 text-center">
-        <p className="text-amber-800 font-medium">
-          Checkout temporalmente deshabilitado
-        </p>
-        <p className="text-amber-600 text-sm mt-1">
-          Estamos actualizando nuestro sistema de pagos. Vuelve pronto.
-        </p>
-      </div>
+      <PayPalCheckout />
     </div>
   );
 }

@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 
 export async function POST() {
-  return NextResponse.json({
-    success: false,
-    message: "Checkout temporalmente deshabilitado",
-  });
+  return NextResponse.json(
+    { error: "This endpoint is deprecated. Use POST /api/payments/create-order instead." },
+    { status: 410 }
+  );
 }

@@ -13,6 +13,9 @@ export interface IOrder extends Document {
   currency: string;
   status: "pending" | "paid" | "failed";
   customerEmail?: string;
+  paypalOrderId?: string;
+  paypalPayerId?: string;
+  paypalPaymentSource?: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -37,6 +40,9 @@ const OrderSchema = new Schema<IOrder>(
       default: "pending",
     },
     customerEmail: { type: String },
+    paypalOrderId: { type: String, index: true },
+    paypalPayerId: { type: String },
+    paypalPaymentSource: { type: String },
   },
   { timestamps: true }
 );
