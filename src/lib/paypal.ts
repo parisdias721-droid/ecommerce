@@ -11,9 +11,15 @@ async function getAccessToken(): Promise<string> {
     return cachedToken.token;
   }
 
-  const clientId = process.env.PAYPAL_CLIENT_ID!;
-  const clientSecret = process.env.PAYPAL_CLIENT_SECRET!;
+  const clientId = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || process.env.PAYPAL_CLIENT_ID || "";
+  const clientSecret = process.env.PAYPAL_CLIENT_SECRET || "";
   const environment = process.env.PAYPAL_ENVIRONMENT === "live" ? "https://api-m.paypal.com" : "https://api-m.sandbox.paypal.com";
+
+  console.log("[PayPal getAccessToken]", {
+    clientIdLength: clientId.length,
+    secretLength: clientSecret.length,
+    environment,
+  });
 
   const basicAuth = Buffer.from(`${clientId}:${clientSecret}`).toString("base64");
 
