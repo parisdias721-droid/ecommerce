@@ -32,11 +32,17 @@ export default function CheckoutPage() {
           {items.map((item) => (
             <div key={item.productId} className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                {item.image && (
-                  <div className="w-12 h-12 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
-                    <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
-                  </div>
-                )}
+                <div className="w-12 h-12 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
+                  <img
+                    src={item.image || "/images/product-placeholder.svg"}
+                    alt={item.name}
+                    onError={(e) => {
+                      e.currentTarget.onerror = null;
+                      e.currentTarget.src = "/images/product-placeholder.svg";
+                    }}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
                 <div>
                   <p className="text-sm font-medium text-gray-900">{item.name}</p>
                   <p className="text-xs text-gray-500">Qty: {item.quantity}</p>

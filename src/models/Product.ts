@@ -7,6 +7,7 @@ export interface IProduct extends Document {
   currency: string;
   images: string[];
   category: string;
+  stock: number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -19,6 +20,7 @@ const ProductSchema = new Schema<IProduct>(
     currency: { type: String, default: "usd" },
     images: [{ type: String }],
     category: { type: String, default: "uncategorized", index: true },
+    stock: { type: Number, default: 0 },
   },
   { timestamps: true }
 );

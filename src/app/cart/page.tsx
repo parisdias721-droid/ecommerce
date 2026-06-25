@@ -39,13 +39,15 @@ export default function CartPage() {
             className="flex items-center gap-4 bg-white border border-gray-200 rounded-xl p-4"
           >
             <div className="w-20 h-20 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
-              {item.image ? (
-                <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center text-gray-400 text-xs">
-                  No img
-                </div>
-              )}
+              <img
+                src={item.image || "/images/product-placeholder.svg"}
+                alt={item.name}
+                onError={(e) => {
+                  e.currentTarget.onerror = null;
+                  e.currentTarget.src = "/images/product-placeholder.svg";
+                }}
+                className="w-full h-full object-cover"
+              />
             </div>
 
             <div className="flex-1 min-w-0">

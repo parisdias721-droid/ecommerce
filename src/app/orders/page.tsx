@@ -98,11 +98,17 @@ function OrdersContent() {
               <div className="space-y-3">
                 {order.items.map((item, i) => (
                   <div key={i} className="flex items-center gap-3">
-                    {item.image && (
-                      <div className="w-12 h-12 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
-                        <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
-                      </div>
-                    )}
+                    <div className="w-12 h-12 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
+                      <img
+                        src={item.image || "/images/product-placeholder.svg"}
+                        alt={item.name}
+                        onError={(e) => {
+                          e.currentTarget.onerror = null;
+                          e.currentTarget.src = "/images/product-placeholder.svg";
+                        }}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
                     <div className="flex-1">
                       <p className="font-medium text-gray-900">{item.name}</p>
                       <p className="text-sm text-gray-500">x{item.quantity}</p>
